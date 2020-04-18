@@ -16,6 +16,9 @@ public class Spawner : MonoBehaviour
     public Text HealthUI;
     
     GameObject[] enemylist;
+    string[] tagToDisable = {
+        "ELeaf", "EWater", "EFire"
+    };
     bool Killed10;
     bool Killed20;
     
@@ -35,9 +38,11 @@ public class Spawner : MonoBehaviour
 
         if (MasterControl.Instance.Health == 0) {
             CancelInvoke("Spawn");
-            enemylist = GameObject.FindGameObjectsWithTag("Enemy");
-            for(var i = 0; i < enemylist.Length; i++) {
-                Destroy(enemylist[i]);
+            foreach (string tag in tagToDisable) {
+                enemylist = GameObject.FindGameObjectsWithTag(tag);
+                for(var i = 0; i < enemylist.Length; i++) {
+                    Destroy(enemylist[i]);
+                }
             }
             UIText.text = "YOU LOSE LUL";
         }
@@ -58,9 +63,11 @@ public class Spawner : MonoBehaviour
 
         if (MasterControl.Instance.Kills >= 30) {
             CancelInvoke("Spawn");
-            enemylist = GameObject.FindGameObjectsWithTag("Enemy");
-            for(var i = 0; i < enemylist.Length; i++) {
-                Destroy(enemylist[i]);
+            foreach (string tag in tagToDisable) {
+                enemylist = GameObject.FindGameObjectsWithTag(tag);
+                for(var i = 0; i < enemylist.Length; i++) {
+                    Destroy(enemylist[i]);
+                }
             }
             UIText.text = "YOU WON POGU";
         }
